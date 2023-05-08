@@ -1,4 +1,6 @@
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 namespace RandomPictureGenLib.PictureGen
 {
     public class Image
@@ -18,7 +20,7 @@ namespace RandomPictureGenLib.PictureGen
 
         private void SetRandomBWPixel(int x, int y)
         {
-            if (rand.Next(0,2) % 2 == 0)
+            if (rand.Next(0, 2) % 2 == 0)
             {
                 image.SetPixel(x, y, Color.FromArgb(0, 0, 0));
             }
@@ -39,10 +41,36 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        public void SaveImg(string path)
-        {
+        private void SaveBmp(string path)
+        {        
             image.Save(path);
         }
+        private void SaveJpg(string path)
+        {
+
+        }
+
+        public void SaveImg(string extension, string path)
+        {
+            try
+            {
+                if (extension == "bmp")
+                {
+                    SaveBmp(path);
+                }
+                else
+                {
+                    SaveJpg(path);
+                }
+            }
+            catch (DirectoryNotFoundException dirNotFound)
+            {
+                Console.WriteLine("Directory not found");
+            }
+
+
+        }
+
     }
-    
+
 }
