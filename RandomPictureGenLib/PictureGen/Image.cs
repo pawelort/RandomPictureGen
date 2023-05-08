@@ -1,17 +1,17 @@
 using System.Drawing;
-namespace PictureGenConsoleApp.PictureGen
+namespace RandomPictureGenLib.PictureGen
 {
-    public class BmpImg
+    public class Image
     {
         private Bitmap image;
         Random rand = new Random();
 
-        public BmpImg(int x, int y)
+        public Image(int x, int y)
         {
             image = new Bitmap(x, y);
         }
 
-        public BmpImg(int x)
+        public Image(int x)
         {
             image = new Bitmap(x, x);
         }
@@ -43,6 +43,6 @@ namespace PictureGenConsoleApp.PictureGen
         {
             image.Save(path);
         }
-
     }
+    
 }

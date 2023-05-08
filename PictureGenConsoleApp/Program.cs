@@ -1,4 +1,4 @@
-﻿using PictureGenConsoleApp.PictureGen;
+﻿using RandomPictureGenLib.PictureGen;
 namespace PictureGenConsoleApp
 {
     internal class Program
@@ -6,7 +6,7 @@ namespace PictureGenConsoleApp
         static void Main(string[] args)
         {
             string path = @"E:\dotnet projects\PictureGen\picture\new.bmp";
-            BmpImg image = new BmpImg(int.Parse(args[0]), int.Parse(args[1]));
+            Image image = new Image(int.Parse(args[0]), int.Parse(args[1]));
             image.SetRandomImg();
             image.SaveImg(path);
 
