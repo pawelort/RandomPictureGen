@@ -50,22 +50,25 @@ namespace RandomPictureGenLib.PictureGen
 
         }
 
-        public void SaveImg(string extension, string path)
+        public void SaveImg(string path)
         {
             try
             {
-                if (extension == "bmp")
+                string[] folderPath = path.Split('\\');
+                string extension = folderPath[^1];
+                DirectoryInfo dirInfo = Directory.CreateDirectory(String.Join('\\', folderPath[0..^1]));
+                if (extension.Contains("bmp"))
                 {
                     SaveBmp(path);
                 }
                 else
-                {
+                {   
                     SaveJpg(path);
                 }
             }
-            catch (DirectoryNotFoundException dirNotFound)
+            catch (Exception exc)
             {
-                Console.WriteLine("Directory not found");
+                Console.WriteLine($"{exc.Message}");
             }
 
 
