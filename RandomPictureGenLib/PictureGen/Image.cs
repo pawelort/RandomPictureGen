@@ -47,7 +47,7 @@ namespace RandomPictureGenLib.PictureGen
         }
         private void SaveJpg(string path)
         {
-
+            image.Save(path, ImageFormat.Jpeg);
         }
 
         public void SaveImg(string path)
