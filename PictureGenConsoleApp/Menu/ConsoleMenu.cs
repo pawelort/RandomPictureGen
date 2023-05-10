@@ -1,3 +1,4 @@
+using RandomPictureGenLib.PictureGen;
 namespace PictureGenConsoleApp.Menu
 {
     public class ConsoleMenu
@@ -11,9 +12,11 @@ namespace PictureGenConsoleApp.Menu
         public ConsoleMenu()
         {
             currentMenuDisply = MenuType.MainMenu;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("************************************************");
             Console.WriteLine("* Welcome in Simple Picture Generator Program *");
             Console.WriteLine("************************************************");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
 
@@ -48,7 +51,8 @@ namespace PictureGenConsoleApp.Menu
             Console.WriteLine("1: Specify destination path");
             Console.WriteLine("2: Specify width size");
             Console.WriteLine("3: Specify height size");
-            Console.WriteLine("9: Quit program");
+            Console.WriteLine("4: Generate picture");
+            Console.WriteLine("9: Quit program\n");
             userSelection = Console.ReadLine();
 
             switch (userSelection)
@@ -65,11 +69,14 @@ namespace PictureGenConsoleApp.Menu
                     currentMenuDisply = MenuType.HeightSize;
                     HeightSizeMenu();
                     break;
+                case "4":
+                    GeneratePicture();
+                    break;
                 case "9":
                     currentMenuDisply = MenuType.Exit;
                     break;
                 default:
-                    Console.WriteLine("Invalid selection. Please try again.");
+                    Console.WriteLine("Invalid selection. Please try again.\n");
                     break;
 
             }
@@ -77,17 +84,73 @@ namespace PictureGenConsoleApp.Menu
 
         private void DestinationPathMenu()
         {
+            Console.WriteLine("****************************");
+            Console.WriteLine("* Specify destination path *");
+            Console.WriteLine("****************************");
+            Console.WriteLine("");
+
+            userSelection = Console.ReadLine();
+            try
+            {
+                path = userSelection;
+                currentMenuDisply = MenuType.MainMenu;
+            }
+            catch(Exception pathException)
+            {
+                Console.WriteLine(pathException.Message);
+            }
 
         }
 
         private void WidthSizeMenu()
         {
+            Console.WriteLine("**********************");
+            Console.WriteLine("* Specify width size *");
+            Console.WriteLine("**********************");
+            Console.WriteLine("");
 
+            userSelection = Console.ReadLine();
+            try
+            {
+                widthSize = int.Parse(userSelection);
+                currentMenuDisply = MenuType.MainMenu;
+            }
+            catch(Exception widthSizeExc)
+            {
+                Console.WriteLine(widthSizeExc.Message);
+            }
         }
 
         private void HeightSizeMenu()
         {
+            Console.WriteLine("***********************");
+            Console.WriteLine("* Specify height size *");
+            Console.WriteLine("***********************");
+            Console.WriteLine("");
 
+            userSelection = Console.ReadLine();
+            try
+            {
+                heightSize = int.Parse(userSelection);
+                currentMenuDisply = MenuType.MainMenu;
+            }
+            catch(Exception heightSizeExc)
+            {
+                Console.WriteLine(heightSizeExc.Message);
+            }
+        }
+        private void GeneratePicture()
+        {
+            try
+            {
+                Image image = new Image(widthSize, heightSize);
+                image.SetRandomImg();
+                image.SaveImg(path);
+            }
+            catch (Exception generationExc)
+            {
+                Console.WriteLine(generationExc.Message);
+            }
         }
     }
 }
