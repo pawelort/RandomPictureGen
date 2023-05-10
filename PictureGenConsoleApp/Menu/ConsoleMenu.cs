@@ -4,14 +4,27 @@ namespace PictureGenConsoleApp.Menu
     public class ConsoleMenu
     {
         private MenuType currentMenuDisply;
-        string userSelection;
-        private string path;
+        private string userSelection;
+        private string _path;
         private int widthSize;
         private int heightSize;
 
+        string path
+        {
+            get{ return _path; }
+            set
+            {
+                _path = value;
+            }
+        }
         public ConsoleMenu()
         {
             currentMenuDisply = MenuType.MainMenu;
+            path = Directory.GetCurrentDirectory();
+            widthSize = 10;
+            heightSize = 10;
+            userSelection = "";
+
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("************************************************");
             Console.WriteLine("* Welcome in Simple Picture Generator Program *");
@@ -52,8 +65,9 @@ namespace PictureGenConsoleApp.Menu
             Console.WriteLine("2: Specify width size");
             Console.WriteLine("3: Specify height size");
             Console.WriteLine("4: Generate picture");
-            Console.WriteLine("9: Quit program\n");
-            userSelection = Console.ReadLine();
+            Console.WriteLine("9: Quit program");
+
+            ReadConsoleLine();
 
             switch (userSelection)
             {
@@ -87,12 +101,13 @@ namespace PictureGenConsoleApp.Menu
             Console.WriteLine("****************************");
             Console.WriteLine("* Specify destination path *");
             Console.WriteLine("****************************");
-            Console.WriteLine("");
 
-            userSelection = Console.ReadLine();
+            ReadConsoleLine();
+
             try
             {
                 path = userSelection;
+                FileInfo fi = new FileInfo(path);
                 currentMenuDisply = MenuType.MainMenu;
             }
             catch(Exception pathException)
@@ -107,15 +122,14 @@ namespace PictureGenConsoleApp.Menu
             Console.WriteLine("**********************");
             Console.WriteLine("* Specify width size *");
             Console.WriteLine("**********************");
-            Console.WriteLine("");
-
-            userSelection = Console.ReadLine();
+            
+            ReadConsoleLine();
             try
             {
                 widthSize = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
-            catch(Exception widthSizeExc)
+            catch(FormatException widthSizeExc)
             {
                 Console.WriteLine(widthSizeExc.Message);
             }
@@ -126,15 +140,14 @@ namespace PictureGenConsoleApp.Menu
             Console.WriteLine("***********************");
             Console.WriteLine("* Specify height size *");
             Console.WriteLine("***********************");
-            Console.WriteLine("");
 
-            userSelection = Console.ReadLine();
+            ReadConsoleLine();
             try
             {
                 heightSize = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
-            catch(Exception heightSizeExc)
+            catch(FormatException heightSizeExc)
             {
                 Console.WriteLine(heightSizeExc.Message);
             }
@@ -151,6 +164,12 @@ namespace PictureGenConsoleApp.Menu
             {
                 Console.WriteLine(generationExc.Message);
             }
+        }
+        private void ReadConsoleLine()
+        {
+            Console.WriteLine("");
+            userSelection = Console.ReadLine();
+            Console.WriteLine("");
         }
     }
 }
