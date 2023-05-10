@@ -8,9 +8,8 @@ namespace PictureGenConsoleApp
         {
             if (args.Length > 0)
             {
-                Image image = new Image(int.Parse(args[0]), int.Parse(args[1]));
-                image.SetRandomImg();
-                image.SaveImg(args[2]);
+                Image image = new Image(int.Parse(args[0]), int.Parse(args[1]), args[2]);
+                image.CreateImage();
             }
             else
             {
