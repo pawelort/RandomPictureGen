@@ -42,8 +42,8 @@ namespace RandomPictureGenLib.PictureGen
 
         public Bitmap CreateImage()
         {
-            Bitmap image = new Bitmap(width, height);
-            Random rand = new Random();
+            using var image = new Bitmap(width, height);
+            var rand = new Random();
 
             for (int x = 0; x < image.Width; x++)
             {
