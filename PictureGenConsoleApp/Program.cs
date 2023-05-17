@@ -8,8 +8,10 @@ namespace PictureGenConsoleApp
         {
             if (args.Length > 0)
             {
-                Image image = new Image(int.Parse(args[0]), int.Parse(args[1]), args[2]);
-                image.CreateImage();
+                Image image = Image.CreateRectangle(int.Parse(args[0]), int.Parse(args[1]));
+                var picture = image.CreateImage();
+                PicSave.Path = args[2];
+                PicSave.Save(picture, PicSave.Path);
             }
             else
             {
