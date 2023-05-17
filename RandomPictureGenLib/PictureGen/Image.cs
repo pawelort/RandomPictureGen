@@ -7,21 +7,21 @@ namespace RandomPictureGenLib.PictureGen
     {
         private const int DefaultWidth = 10;
         private const int DefaultHeight = 10;
-        private readonly int width;
-        private readonly int height;
+        private int width;
+        private int height;
 
 
 
         public int Width
         {
             get => width;
-            private init => width = value > 0 ? value : DefaultWidth;
+            set => width = value > 0 ? value : DefaultWidth;
         }
 
         public int Height
         {
             get => height;
-            private init => height = value > 0 ? value : DefaultHeight;
+            set => height = value > 0 ? value : DefaultHeight;
         }
 
         public static Image CreateRectangle(int x, int y)

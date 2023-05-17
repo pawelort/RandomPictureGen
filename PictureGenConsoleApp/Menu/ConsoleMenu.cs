@@ -9,7 +9,7 @@ namespace PictureGenConsoleApp.Menu
         public ConsoleMenu()
         {
             currentMenuDisply = MenuType.MainMenu;
-            image = new Image(10, 10, Directory.GetCurrentDirectory());
+            image = Image.CreateSquare(10);
             userSelection = "";
 
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -97,8 +97,8 @@ namespace PictureGenConsoleApp.Menu
             ReadConsoleLine();
 
 
-            image.path = userSelection;
-            if (image.path != "")
+            PicSave.Path = userSelection;
+            if (PicSave.Path != "")
             {
                 currentMenuDisply = MenuType.MainMenu;
             }
@@ -114,7 +114,7 @@ namespace PictureGenConsoleApp.Menu
             ReadConsoleLine();
             try
             {
-                image.width = int.Parse(userSelection);
+                image.Width = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
             catch (FormatException widthSizeExc)
@@ -132,7 +132,7 @@ namespace PictureGenConsoleApp.Menu
             ReadConsoleLine();
             try
             {
-                image.height = int.Parse(userSelection);
+                image.Height = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
             catch (FormatException heightSizeExc)
@@ -144,7 +144,8 @@ namespace PictureGenConsoleApp.Menu
         {
             try
             {
-                image.CreateImage();
+                var picture = image.CreateImage();
+                PicSave.Save(picture, PicSave.Path);
             }
             catch (Exception generationExc)
             {
@@ -154,9 +155,9 @@ namespace PictureGenConsoleApp.Menu
 
         private void ShowSettings()
         {   
-            Console.WriteLine($"Width of picture is set to {image.width}");
-            Console.WriteLine($"Width of picture is set to {image.height}");
-            Console.WriteLine($"Picture will be generated to {image.path}");
+            Console.WriteLine($"Width of picture is set to {image.Width}");
+            Console.WriteLine($"Height of picture is set to {image.Height}");
+            Console.WriteLine($"Picture will be generated to {PicSave.Path}");
             Console.WriteLine("");
         }
         private void ReadConsoleLine()
