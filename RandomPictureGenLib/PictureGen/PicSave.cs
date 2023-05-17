@@ -6,7 +6,7 @@ namespace RandomPictureGenLib.PictureGen
     {
         private static string path = Directory.GetCurrentDirectory();
 
-        public string Path
+        public static string Path
         {
             get => path;
             set
@@ -21,7 +21,7 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        public static void Save(Bitmap img, string path = Path)
+        public static void Save(Bitmap img, string path)
         {
             var file = new FileInfo(path);
             var directory = file.Directory;
@@ -37,7 +37,7 @@ namespace RandomPictureGenLib.PictureGen
                 SaveJpg(img, path);
             }
         }
-        private void SaveBmp(Bitmap img, string path)
+        private static void SaveBmp(Bitmap img, string path)
         {
             try { img.Save(path); }
             catch (Exception exc)
@@ -46,7 +46,7 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        private void SaveJpg(Bitmap img, string path)
+        private static void SaveJpg(Bitmap img, string path)
         {
             try{ img.Save(path, ImageFormat.Jpeg); }
             catch (Exception exc)
