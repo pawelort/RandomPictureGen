@@ -3,51 +3,32 @@ using System.Drawing;
 using System.Drawing.Imaging;
 namespace RandomPictureGenLib.PictureGen
 {
-    public class Image
+    public static class Image
     {
         private const int DefaultWidth = 10;
         private const int DefaultHeight = 10;
-        private int width;
-        private int height;
 
-
-
-        public int Width
+        public static Bitmap CreateRectangle(int x, int y)
         {
-            get => width;
-            set => width = value > 0 ? value : DefaultWidth;
+            return CreateImage(x, y);
         }
 
-        public int Height
+        public static Bitmap CreateSquare(int x)
         {
-            get => height;
-            set => height = value > 0 ? value : DefaultHeight;
+            return CreateImage(x, x);
         }
 
-        public static Image CreateRectangle(int x, int y)
+        private static Bitmap CreateImage(int width, int height)
         {
-            return new Image(x, y);
-        }
+            var image_width = width > 0 ? width : DefaultWidth;
+            var image_height = height > 0 ? height : DefaultHeight;
 
-        public static Image CreateSquare(int x)
-        {
-            return new Image(x, x);
-        }
-
-        public Image(int x, int y)
-        {
-            Width = x;
-            height = y;
-        }
-
-        public Bitmap CreateImage()
-        {
-            using var image = new Bitmap(width, height);
+            var image = new Bitmap(image_width, image_height);
             var rand = new Random();
 
-            for (int x = 0; x < image.Width; x++)
+            for (int x = 0; x < image_width; x++)
             {
-                for (int y = 0; y < image.Height; y++)
+                for (int y = 0; y < image_height; y++)
                 {
                     if (rand.Next(0, 2) % 2 == 0)
                     {
