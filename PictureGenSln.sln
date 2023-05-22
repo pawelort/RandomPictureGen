@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureGenConsoleApp", "Pic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomPictureGenLib", "RandomPictureGenLib\RandomPictureGenLib.csproj", "{5355554F-044A-4094-94BF-4379E1866D89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureGenTest", "PictureGenTest\PictureGenTest.csproj", "{6C46D77B-F987-483E-98B3-9DEF3716FDF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5355554F-044A-4094-94BF-4379E1866D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5355554F-044A-4094-94BF-4379E1866D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5355554F-044A-4094-94BF-4379E1866D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C46D77B-F987-483E-98B3-9DEF3716FDF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C46D77B-F987-483E-98B3-9DEF3716FDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C46D77B-F987-483E-98B3-9DEF3716FDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C46D77B-F987-483E-98B3-9DEF3716FDF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
