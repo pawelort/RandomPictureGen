@@ -11,7 +11,7 @@ namespace PictureGenConsoleApp
                 var imgAbstract = ImageAbstraction.CreateRectangle(int.Parse(args[0]), int.Parse(args[1]));
                 using var image = PicCreate.CreateImage(imgAbstract);
                 PicSave.Path = args[2];
-                PicSave.Save(image, PicSave.Path);
+                PicSave.SaveBmp(image, PicSave.Path);
             }
             else
             {

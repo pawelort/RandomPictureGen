@@ -45,7 +45,3 @@ namespace RandomPictureGenLib.PictureGen
 
 }
 
-
-//TODO: oddzielić zapisywanie obrazka od tworzenia obrazka
-//TODO: zrobić unit testy
-//TODO: pomyśleć nad innym sposobem zamodelowania obrazka (dwuwymiarowy array z pixelami?)

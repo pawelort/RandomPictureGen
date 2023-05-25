@@ -146,7 +146,7 @@ namespace PictureGenConsoleApp.Menu
             try
             {
                 using var picture = pictureSettings.Create();
-                PicSave.Save(picture, PicSave.Path);
+                PicSave.SaveBmp(picture, PicSave.Path);
             }
             catch (Exception generationExc)
             {
