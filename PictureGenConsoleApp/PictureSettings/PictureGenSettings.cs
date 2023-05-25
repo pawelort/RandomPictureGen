@@ -1,4 +1,5 @@
 using System.Drawing;
+using RandomPictureGenLib.PictureGen;
 namespace PictureGenConsoleApp.PictureSettings
 {
     public class PictureGenSettings
@@ -26,7 +27,8 @@ namespace PictureGenConsoleApp.PictureSettings
         }
         public Bitmap Create()
         {
-            return RandomPictureGenLib.PictureGen.Image.CreateRectangle(Width, Height);
+            var imgAbstraction = ImageAbstraction.CreateRectangle(Width, Height);
+            return PicCreate.CreateImage(imgAbstraction);
         }
     }
 }
