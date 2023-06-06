@@ -1,20 +1,20 @@
 using System.Drawing;
+using RandomPictureGenLib.PictureGenInterfaces;
 namespace RandomPictureGenLib.PictureGen
 {
-    public static class PicCreate
+    public class PicCreate : IPictureCreate
     {
-        public static Bitmap CreateImage(Color[,] imageAbstrac)
-        {
-            var imageWidth = imageAbstrac.GetLength(0);
-            var imageHeight = imageAbstrac.GetLength(1);
-            var image = new Bitmap(imageWidth, imageHeight);
-            var rand = new Random();
 
-            for (int x = 0; x < imageWidth; x++)
+        Bitmap image;
+        public void CreateImage(IImageDTO imageAbstrac)
+        {
+            var image = new Bitmap(imageAbstrac.Width, imageAbstrac.Height);
+
+            for (int x = 0; x < imageAbstrac.Width; x++)
             {
-                for (int y = 0; y < imageHeight; y++)
+                for (int y = 0; y < imageAbstrac.Height; y++)
                 {
-                    if (rand.Next(0, 2) % 2 == 0)
+                    if (imageAbstrac.(x, y))
                     {
                         image.SetPixel(x, y, Color.FromArgb(0, 0, 0));
                     }

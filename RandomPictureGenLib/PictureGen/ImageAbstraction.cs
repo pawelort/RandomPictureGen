@@ -1,45 +1,50 @@
-using System.Drawing;
+using RandomPictureGenLib.PictureGenInterfaces;
 namespace RandomPictureGenLib.PictureGen
 {
-    public static class ImageAbstraction
+    public class ImageAbstraction : IImageAbstraction
     {
-        private const int DefaultWidth = 10;
-        private const int DefaultHeight = 10;
+        private IImageDTO imageAbstraction;
 
-        public static Color[,] CreateRectangle(int x, int y)
+        public ImageAbstraction(IImageDTO imageAbstraction)
         {
-            return CreateImageAbstraction(x, y);
+            this.imageAbstraction = imageAbstraction;
+            CreateImageAbstraction();
         }
 
-        public static Color[,] CreateSquare(int x)
+        private void SetWhitePixel(int x, int y)
         {
-            return CreateImageAbstraction(x, x);
+            imageAbstraction.imagePixels[x, y] = true;
         }
 
-        private static Color[,] CreateImageAbstraction(int width, int height)
+        private void SetBlackPixel(int x, int y)
         {
-            var imageWidth = width > 0 ? width : DefaultWidth;
-            var imageHeight = height > 0 ? height : DefaultHeight;
+            imageAbstraction.imagePixels[x, y] = false;
+        }
 
-            var imageAbstraction = new Color[imageWidth, imageHeight];
+        public bool IsPixelWhite(int x, int y)
+        {
+            return imageAbstraction.imagePixels[x, y];
+        }
+        private void CreateImageAbstraction()
+        {
+
             var rand = new Random();
             
-            for (int x = 0; x < imageWidth; x++)
+            for (int x = 0; x < imageAbstraction.Width; x++)
             {
-                for (int y = 0; y < imageHeight; y++)
+                for (int y = 0; y < imageAbstraction.Width; y++)
                 {
                     if (rand.Next(0, 2) % 2 == 0)
                     {
-                        imageAbstraction[x, y] = Color.FromArgb(0, 0, 0);
+                        SetBlackPixel(x, y);
                     }
                     else
                     {
-                        imageAbstraction[x, y] = Color.FromArgb(255, 255, 255);
+                        SetWhitePixel(x, y);
                     }
                 }
             }
 
-            return imageAbstraction;
         }
     }
 
