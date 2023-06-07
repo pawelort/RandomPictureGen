@@ -2,7 +2,7 @@ using System.Drawing;
 using RandomPictureGenLib.PictureGenInterfaces;
 namespace RandomPictureGenLib.PictureGen
 {
-    public class PicCreate : IPictureCreate
+    public class PicCreate : IPicCreate
     {
 
         Bitmap image;
@@ -14,7 +14,7 @@ namespace RandomPictureGenLib.PictureGen
             {
                 for (int y = 0; y < imageAbstrac.Height; y++)
                 {
-                    if (imageAbstrac.(x, y))
+                    if (imageAbstrac.IsPixelWhite(x, y))
                     {
                         image.SetPixel(x, y, Color.FromArgb(0, 0, 0));
                     }
@@ -25,7 +25,6 @@ namespace RandomPictureGenLib.PictureGen
                 }
             }
 
-            return image;
         }
     }
 }

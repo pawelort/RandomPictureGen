@@ -1,12 +1,13 @@
 using System.Drawing;
 using System.Drawing.Imaging;
+using RandomPictureGenLib.PictureGenInterfaces;
 namespace RandomPictureGenLib.PictureGen
 {
-    public class PicSave
+    public class PicSave : IPicSave
     {
-        private static string path = Directory.GetCurrentDirectory();
-
-        public static string Path
+        private string path = Directory.GetCurrentDirectory();
+        private Bitmap image;
+        public string Path
         {
             get => path;
             set
@@ -21,19 +22,23 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        private static void PathHandling(string path)
+        public PicSave(Bitmap img)
+        {
+            image = img;
+        }
+        private void PathHandling(string path)
         {
             var file = new FileInfo(path);
             var directory = file.Directory;
             Directory.CreateDirectory(directory.ToString());
         }
 
-        public static void SaveBmp(Bitmap img, string path)
+        public void SaveBmp(string path)
         {
             try 
             { 
                 PathHandling(path);
-                img.Save(path, ImageFormat.Bmp);
+                image.Save(path, ImageFormat.Bmp);
             }
             catch (Exception exc)
             {
@@ -41,12 +46,12 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        public static void SaveJpg(Bitmap img, string path)
+        public void SaveJpg(string path)
         {
             try
             {
                 PathHandling(path);
-                img.Save(path, ImageFormat.Jpeg);
+                image.Save(path, ImageFormat.Jpeg);
             }
             catch (Exception exc)
             {

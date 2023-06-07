@@ -5,5 +5,7 @@ namespace RandomPictureGenLib.PictureGenInterfaces
         int Width { get; }
         int Height { get; }
         bool[,] imagePixels {get; set; }
+
+        public bool IsPixelWhite(int x, int y);
     }
 }

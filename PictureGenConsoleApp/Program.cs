@@ -8,6 +8,7 @@ namespace PictureGenConsoleApp
         {
             if (args.Length > 0)
             {
+                var picture = new RandomPicture()
                 var imgAbstract = ImageAbstraction.CreateRectangle(int.Parse(args[0]), int.Parse(args[1]));
                 using var image = PicCreate.CreateImage(imgAbstract);
                 PicSave.Path = args[2];

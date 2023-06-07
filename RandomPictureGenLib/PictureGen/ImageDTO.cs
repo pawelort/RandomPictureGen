@@ -20,7 +20,10 @@ namespace RandomPictureGenLib.PictureGen
             Height = imagePixels.GetLength(1);
         }
 
-
+        public bool IsPixelWhite(int x, int y)
+        {
+            return imagePixels[x, y];
+        }
         
     }
 }

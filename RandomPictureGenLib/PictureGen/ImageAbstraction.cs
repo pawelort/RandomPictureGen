@@ -21,11 +21,7 @@ namespace RandomPictureGenLib.PictureGen
             imageAbstraction.imagePixels[x, y] = false;
         }
 
-        public bool IsPixelWhite(int x, int y)
-        {
-            return imageAbstraction.imagePixels[x, y];
-        }
-        private void CreateImageAbstraction()
+        public void CreateImageAbstraction()
         {
 
             var rand = new Random();

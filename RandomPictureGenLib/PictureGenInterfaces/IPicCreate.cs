@@ -1,6 +1,6 @@
 namespace RandomPictureGenLib.PictureGenInterfaces
 {
-    public interface IPictureCreate
+    public interface IPicCreate
     {
         void CreateImage(IImageDTO imageAbstrac);
     }
