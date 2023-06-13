@@ -1,7 +1,6 @@
-using RandomPictureGenLib.PictureGenInterfaces;
 namespace RandomPictureGenLib.PictureGen
 {
-    public struct ImageDTO : IImageDTO
+    public struct ImageDTO
     {
 
         private const int DefaultWidth = 10;
@@ -18,11 +17,6 @@ namespace RandomPictureGenLib.PictureGen
             imagePixels = new bool[imageWidth, imageHeight];
             Width = imagePixels.GetLength(0);
             Height = imagePixels.GetLength(1);
-        }
-
-        public bool IsPixelWhite(int x, int y)
-        {
-            return imagePixels[x, y];
         }
         
     }
