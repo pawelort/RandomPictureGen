@@ -6,7 +6,7 @@ namespace RandomPictureGenLib.PictureGen
     {
 
         Bitmap image;
-        public void CreateImage(IImageDTO imageAbstrac)
+        public void CreateImage(ImageDTO imageAbstrac)
         {
             var image = new Bitmap(imageAbstrac.Width, imageAbstrac.Height);
 
@@ -14,7 +14,7 @@ namespace RandomPictureGenLib.PictureGen
             {
                 for (int y = 0; y < imageAbstrac.Height; y++)
                 {
-                    if (imageAbstrac.IsPixelWhite(x, y))
+                    if (imageAbstrac.imagePixels[x, y] == false)
                     {
                         image.SetPixel(x, y, Color.FromArgb(0, 0, 0));
                     }
