@@ -3,44 +3,45 @@ namespace RandomPictureGenLib.PictureGen
 {
     public class ImageAbstraction : IImageAbstraction
     {
-        private IImageDTO imageAbstraction;
+        public int Width { private set; get; }
+        public int Height { private set; get; }
 
-        public ImageAbstraction(IImageDTO imageAbstraction)
+        public ImageAbstraction(int width, int height)
         {
-            this.imageAbstraction = imageAbstraction;
-            CreateImageAbstraction();
+            Width = width;
+            Height = height;
         }
 
-        private void SetWhitePixel(int x, int y)
+        private void SetWhitePixel(ImageDTO imageAbstraction, int x, int y)
         {
             imageAbstraction.imagePixels[x, y] = true;
         }
 
-        private void SetBlackPixel(int x, int y)
+        private void SetBlackPixel(ImageDTO imageAbstraction, int x, int y)
         {
             imageAbstraction.imagePixels[x, y] = false;
         }
 
-        public void CreateImageAbstraction()
+        public ImageDTO CreateImageAbstraction()
         {
-
+            var imageAbstract = new ImageDTO(Width, Height);
             var rand = new Random();
             
-            for (int x = 0; x < imageAbstraction.Width; x++)
+            for (int x = 0; x < imageAbstract.Width; x++)
             {
-                for (int y = 0; y < imageAbstraction.Width; y++)
+                for (int y = 0; y < imageAbstract.Width; y++)
                 {
                     if (rand.Next(0, 2) % 2 == 0)
                     {
-                        SetBlackPixel(x, y);
+                        SetBlackPixel(imageAbstract, x, y);
                     }
                     else
                     {
-                        SetWhitePixel(x, y);
+                        SetWhitePixel(imageAbstract, x, y);
                     }
                 }
             }
-
+            return imageAbstract;
         }
     }
 

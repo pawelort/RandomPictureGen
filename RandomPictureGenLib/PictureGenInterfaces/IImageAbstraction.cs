@@ -1,7 +1,8 @@
+using RandomPictureGenLib.PictureGen;
 namespace RandomPictureGenLib.PictureGenInterfaces
 {
     public interface IImageAbstraction
     {
-        void CreateImageAbstraction();
+        ImageDTO CreateImageAbstraction();
     }
 }
