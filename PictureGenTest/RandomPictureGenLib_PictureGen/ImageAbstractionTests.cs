@@ -3,37 +3,17 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
 {
     public class ImageAbstractionTests
     {
-        [InlineData(30)]
-        [InlineData(300)]
-        [Theory]
-        public void CreateSquarePicture(int dimension)
-        {
-            var squarePicture = ImageAbstraction.CreateSquare(dimension);
-
-            Assert.Equal(squarePicture.GetLength(0), dimension);
-            Assert.Equal(squarePicture.GetLength(1), dimension);
-        }
-
-        [InlineData(-20)]
-        [InlineData(0)]
-        [Theory]
-        public void CreateSquarePictureWithForbiddenDim(int dimension)
-        {
-            var squarePicture = ImageAbstraction.CreateSquare(dimension);
-
-            Assert.Equal(squarePicture.GetLength(0), 10);
-            Assert.Equal(squarePicture.GetLength(1), 10);
-        }
-
         [InlineData(30, 80)]
         [InlineData(15, 100)]
         [Theory]
         public void CreateRectanglePicture(int x_dimension, int y_dimension)
         {
-            var squarePicture = ImageAbstraction.CreateRectangle(x_dimension, y_dimension);
+            var imgAbstract = new ImageAbstraction(x_dimension, y_dimension);
+            var picture = imgAbstract.CreateImageAbstraction();
 
-            Assert.Equal(squarePicture.GetLength(0), x_dimension);
-            Assert.Equal(squarePicture.GetLength(1), y_dimension);
+            Assert.Equal(x_dimension, picture.Width);
+            Assert.Equal(y_dimension, picture.Height);
+            Assert.IsType<ImageDTO>(picture);
         }
 
         [InlineData(-50, 0)]
@@ -41,19 +21,21 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         [Theory]
         public void CreateRectanglePictureWithForbiddenBothDim(int x_dimension, int y_dimension)
         {
-            var squarePicture = ImageAbstraction.CreateRectangle(x_dimension, y_dimension);
+            var imgAbstract = new ImageAbstraction(x_dimension, y_dimension);
+            var picture = imgAbstract.CreateImageAbstraction();
 
-            Assert.Equal(squarePicture.GetLength(0), 10);
-            Assert.Equal(squarePicture.GetLength(1), 10);
+            Assert.Equal(10, picture.Width);
+            Assert.Equal(10, picture.Height);
         }
 
         [Fact]
         public void CreateRectanglePictureWithForbiddenOneDim()
         {
-            var squarePicture = ImageAbstraction.CreateRectangle(-50, 80);
+            var imgAbstract = new ImageAbstraction(-50, 80);
+            var picture = imgAbstract.CreateImageAbstraction();
 
-            Assert.Equal(squarePicture.GetLength(0), 10);
-            Assert.Equal(squarePicture.GetLength(1), 80);
+            Assert.Equal(10, picture.Width);
+            Assert.Equal(80, picture.Height);
         }
     }
 }
