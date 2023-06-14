@@ -6,21 +6,6 @@ namespace RandomPictureGenLib.PictureGen
     public class WindowsPictureSaver : IPictureSaver
     {
         public Bitmap image { private set; get; }
-        private string path = Directory.GetCurrentDirectory();
-        public string Path
-        {
-            get => path;
-            set
-            {
-                var invalidPathChars = System.IO.Path.GetInvalidPathChars();
-                if (invalidPathChars.Any(value.Contains))
-                {
-                    path = Directory.GetCurrentDirectory();
-                    return;
-                }
-                path = value;
-            }
-        }
 
         public void CreatePicture(ImageDTO imageAbstraction)
         {
@@ -42,18 +27,23 @@ namespace RandomPictureGenLib.PictureGen
 
         }
 
-        private void PathHandling(string path)
+        private string PathHandling(string path)
         {
+            var invalidPathChars = System.IO.Path.GetInvalidPathChars();
+            if (invalidPathChars.Any(path.Contains))
+                {
+                    path = Directory.GetCurrentDirectory();
+                }
             var file = new FileInfo(path);
             var directory = file.Directory;
             Directory.CreateDirectory(directory.ToString());
+            return path;
         }
         public void SaveBmp(string path)
         {
             try
             {
-                PathHandling(path);
-                image.Save(path, ImageFormat.Bmp);
+                image.Save(PathHandling(path), ImageFormat.Bmp);
             }
             catch (Exception exc)
             {
@@ -65,8 +55,7 @@ namespace RandomPictureGenLib.PictureGen
         {
             try
             {
-                PathHandling(path);
-                image.Save(path, ImageFormat.Jpeg);
+                image.Save(PathHandling(path), ImageFormat.Jpeg);
             }
             catch (Exception exc)
             {

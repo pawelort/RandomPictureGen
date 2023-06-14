@@ -1,16 +1,19 @@
 using RandomPictureGenLib.PictureGen;
-using PictureGenConsoleApp.PictureSettings;
 namespace PictureGenConsoleApp.Menu
 {
     public class ConsoleMenu
     {
         private MenuType currentMenuDisply;
         private string userSelection;
-        private PictureGenSettings pictureSettings;
+        private ImageAbstraction imageModel;
+        private WindowsPictureSaver imageSaver;
+        private string imagePath;
         public ConsoleMenu()
         {
             currentMenuDisply = MenuType.MainMenu;
-            pictureSettings = new PictureGenSettings(10, 10);
+            imageModel = new ImageAbstraction(10, 10);
+            imageSaver = new WindowsPictureSaver();
+            imagePath = string.Empty;
             userSelection = "";
 
             Console.ForegroundColor = ConsoleColor.Blue;
@@ -97,10 +100,9 @@ namespace PictureGenConsoleApp.Menu
 
             ReadConsoleLine();
 
-
-            PicSave.Path = userSelection;
-            if (PicSave.Path != "")
+            if (userSelection != "")
             {
+                imagePath = userSelection;
                 currentMenuDisply = MenuType.MainMenu;
             }
 
@@ -115,7 +117,7 @@ namespace PictureGenConsoleApp.Menu
             ReadConsoleLine();
             try
             {
-                pictureSettings.Width = int.Parse(userSelection);
+                imageModel.Width = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
             catch (FormatException widthSizeExc)
@@ -133,7 +135,7 @@ namespace PictureGenConsoleApp.Menu
             ReadConsoleLine();
             try
             {
-                pictureSettings.Height = int.Parse(userSelection);
+                imageModel.Height = int.Parse(userSelection);
                 currentMenuDisply = MenuType.MainMenu;
             }
             catch (FormatException heightSizeExc)
@@ -145,8 +147,9 @@ namespace PictureGenConsoleApp.Menu
         {
             try
             {
-                using var picture = pictureSettings.Create();
-                PicSave.SaveBmp(picture, PicSave.Path);
+                var picture = imageModel.CreateImageAbstraction();
+                imageSaver.CreatePicture(picture);
+                imageSaver.SaveBmp(imagePath);
             }
             catch (Exception generationExc)
             {
@@ -156,9 +159,9 @@ namespace PictureGenConsoleApp.Menu
 
         private void ShowSettings()
         {   
-            Console.WriteLine($"Width of picture is set to {pictureSettings.Width}");
-            Console.WriteLine($"Height of picture is set to {pictureSettings.Height}");
-            Console.WriteLine($"Picture will be generated to {PicSave.Path}");
+            Console.WriteLine($"Width of picture is set to {imageModel.Width}");
+            Console.WriteLine($"Height of picture is set to {imageModel.Height}");
+            Console.WriteLine($"Picture will be generated to {imagePath}");
             Console.WriteLine("");
         }
         private void ReadConsoleLine()

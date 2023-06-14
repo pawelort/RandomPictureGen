@@ -3,8 +3,8 @@ namespace RandomPictureGenLib.PictureGen
 {
     public class ImageAbstraction : IImageAbstraction
     {
-        public int Width { private set; get; }
-        public int Height { private set; get; }
+        public int Width { set; get; }
+        public int Height { set; get; }
 
         public ImageAbstraction(int width, int height)
         {
@@ -46,4 +46,3 @@ namespace RandomPictureGenLib.PictureGen
     }
 
 }
-

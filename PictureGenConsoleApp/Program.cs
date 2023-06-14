@@ -10,7 +10,7 @@ namespace PictureGenConsoleApp
             {
                 var picture = new RandomPicture(int.Parse(args[0]), int.Parse(args[1]));
                 picture.PictureCreate();
-                picture.PictureSaveToJpg(args[2]);
+                picture.PictureSaveToBmp(args[2]);
             }
             else
             {
