@@ -29,7 +29,7 @@ namespace RandomPictureGenLib.PictureGen
             
             for (int x = 0; x < imageAbstract.Width; x++)
             {
-                for (int y = 0; y < imageAbstract.Width; y++)
+                for (int y = 0; y < imageAbstract.Height; y++)
                 {
                     if (rand.Next(0, 2) % 2 == 0)
                     {

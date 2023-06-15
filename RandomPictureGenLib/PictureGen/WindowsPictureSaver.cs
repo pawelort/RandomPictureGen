@@ -27,12 +27,12 @@ namespace RandomPictureGenLib.PictureGen
 
         }
 
-        private string PathHandling(string path)
+        private string PathHandling(string path, string defaultName)
         {
             var invalidPathChars = System.IO.Path.GetInvalidPathChars();
             if (invalidPathChars.Any(path.Contains))
                 {
-                    path = Directory.GetCurrentDirectory();
+                    path = string.Concat(Directory.GetCurrentDirectory().ToString(), @$"\{defaultName}");
                 }
             var file = new FileInfo(path);
             var directory = file.Directory;
@@ -43,7 +43,7 @@ namespace RandomPictureGenLib.PictureGen
         {
             try
             {
-                image.Save(PathHandling(path), ImageFormat.Bmp);
+                image.Save(PathHandling(path, "pic.bmp"), ImageFormat.Bmp);
             }
             catch (Exception exc)
             {
@@ -55,7 +55,7 @@ namespace RandomPictureGenLib.PictureGen
         {
             try
             {
-                image.Save(PathHandling(path), ImageFormat.Jpeg);
+                image.Save(PathHandling(path, "pic.jpg"), ImageFormat.Jpeg);
             }
             catch (Exception exc)
             {
