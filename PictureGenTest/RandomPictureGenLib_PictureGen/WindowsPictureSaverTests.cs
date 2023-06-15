@@ -1,5 +1,6 @@
 using System.Drawing;
 using RandomPictureGenLib.PictureGen;
+using RandomPictureGenLib.PictureGenInterfaces;
 namespace PictureGenTest.RandomPictureGenLib_PictureGen
 {
     public class PathTests : IDisposable
@@ -103,5 +104,43 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         }
     }
 
-    
+    public class CreateWholeBlackPicture : IDisposable
+    {
+        string? directoryToCreatePath;
+        string? testPictureFullName;
+
+        [Fact]
+        public void SaveBmpPictureTest()
+        {
+            // arrange
+            Mock<IImageAbstraction> createWhiteImageDTO = new Mock<IImageAbstraction>();
+            createWhiteImageDTO.Setup(x => x.CreateImageAbstraction()).Returns(new ImageDTO(20, 20));
+
+            testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.bmp");
+            var imageSaver = new WindowsPictureSaver();
+
+            // act
+            imageSaver.CreatePicture(createWhiteImageDTO.Object.CreateImageAbstraction());
+            imageSaver.SaveBmp(testPictureFullName);
+            using var createdImage = new Bitmap(testPictureFullName);
+
+            // assert
+            Assert.True(File.Exists(testPictureFullName));
+            Assert.Equal(imageSaver.image.Width, createdImage.Width);
+            Assert.Equal(imageSaver.image.Height, createdImage.Height);
+            
+            for (int x = 0; x < createdImage.Width; x++)
+            {
+                for (int y = 0; y < createdImage.Height; y++)
+                {
+                    Assert.Equal(Color.FromArgb(0, 0, 0), createdImage.GetPixel(x, y));
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            File.Delete(testPictureFullName);
+        }
+    }
 }
