@@ -8,7 +8,7 @@ namespace RandomPictureGenLib.PictureGen
 
         private Bitmap CreatePicture(ImageDTO imageAbstraction)
         {
-            using var image = new Bitmap(imageAbstraction.Width, imageAbstraction.Height);
+            var image = new Bitmap(imageAbstraction.Width, imageAbstraction.Height);
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
@@ -42,7 +42,7 @@ namespace RandomPictureGenLib.PictureGen
         {
             try
             {
-                var image = CreatePicture(imageAbstraction);
+                using var image = CreatePicture(imageAbstraction);
                 image.Save(PathHandling(path, "pic.bmp"), ImageFormat.Bmp);
             }
             catch (Exception exc)
@@ -55,7 +55,7 @@ namespace RandomPictureGenLib.PictureGen
         {
             try
             {
-                var image = CreatePicture(imageAbstraction);
+                using var image = CreatePicture(imageAbstraction);
                 image.Save(PathHandling(path, "pic.jpg"), ImageFormat.Jpeg);
             }
             catch (Exception exc)

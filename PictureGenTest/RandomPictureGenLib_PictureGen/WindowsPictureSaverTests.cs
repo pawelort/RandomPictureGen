@@ -13,18 +13,19 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         {
             // arrange
             testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.bmp");
-            var imageAbstract = new ImageAbstraction(30, 30);
+            var picWidth = 30;
+            var picHeight = 30;
+            var imageAbstract = new ImageAbstraction(picWidth, picHeight);
             var imageSaver = new WindowsPictureSaver();
 
             // act
-            imageSaver.CreatePicture(imageAbstract.CreateImageAbstraction());
-            imageSaver.SaveBmp(path);
+            imageSaver.SaveBmp(path, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
             Assert.True(File.Exists(testPictureFullName));
-            Assert.Equal(imageSaver.image.Width, createdImage.Width);
-            Assert.Equal(imageSaver.image.Height, createdImage.Height);
+            Assert.Equal(picWidth, createdImage.Width);
+            Assert.Equal(picHeight, createdImage.Height);
         }
 
         public void Dispose()
@@ -50,15 +51,14 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             var imageSaver = new WindowsPictureSaver();
 
             // act
-            imageSaver.CreatePicture(imageAbstract.CreateImageAbstraction());
-            imageSaver.SaveBmp(testPictureFullName);
+            imageSaver.SaveBmp(testPictureFullName, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
             Assert.True(Directory.Exists(directoryToCreatePath));
             Assert.True(File.Exists(testPictureFullName));
-            Assert.Equal(imageSaver.image.Width, createdImage.Width);
-            Assert.Equal(imageSaver.image.Height, createdImage.Height);
+            Assert.Equal(picWidth, createdImage.Width);
+            Assert.Equal(picHeight, createdImage.Height);
         }
 
         public void Dispose()
@@ -86,15 +86,14 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             var imageSaver = new WindowsPictureSaver();
 
             // act
-            imageSaver.CreatePicture(imageAbstract.CreateImageAbstraction());
-            imageSaver.SaveJpg(testPictureFullName);
+            imageSaver.SaveJpg(testPictureFullName, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
             Assert.True(Directory.Exists(directoryToCreatePath));
             Assert.True(File.Exists(testPictureFullName));
-            Assert.Equal(imageSaver.image.Width, createdImage.Width);
-            Assert.Equal(imageSaver.image.Height, createdImage.Height);
+            Assert.Equal(picWidth, createdImage.Width);
+            Assert.Equal(picHeight, createdImage.Height);
         }
 
         public void Dispose()
@@ -114,20 +113,21 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         {
             // arrange
             Mock<IImageAbstraction> createWhiteImageDTO = new Mock<IImageAbstraction>();
-            createWhiteImageDTO.Setup(x => x.CreateImageAbstraction()).Returns(new ImageDTO(20, 20));
+            var picWidth = 20;
+            var picHeight = 20;
+            createWhiteImageDTO.Setup(x => x.CreateImageAbstraction()).Returns(new ImageDTO(picWidth, picHeight));
 
             testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.bmp");
             var imageSaver = new WindowsPictureSaver();
 
             // act
-            imageSaver.CreatePicture(createWhiteImageDTO.Object.CreateImageAbstraction());
-            imageSaver.SaveBmp(testPictureFullName);
+            imageSaver.SaveBmp(testPictureFullName, createWhiteImageDTO.Object.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
             Assert.True(File.Exists(testPictureFullName));
-            Assert.Equal(imageSaver.image.Width, createdImage.Width);
-            Assert.Equal(imageSaver.image.Height, createdImage.Height);
+            Assert.Equal(picWidth, createdImage.Width);
+            Assert.Equal(picHeight, createdImage.Height);
             
             for (int x = 0; x < createdImage.Width; x++)
             {
