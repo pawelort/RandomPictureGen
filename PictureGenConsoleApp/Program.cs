@@ -8,8 +8,9 @@ namespace PictureGenConsoleApp
         {
             if (args.Length > 0)
             {
-                var picture = new RandomPicture(int.Parse(args[0]), int.Parse(args[1]));
-                picture.PictureCreate();
+                var pictureSaver = new WindowsPictureSaver();
+                var imageAbstraction = new ImageAbstraction(int.Parse(args[0]), int.Parse(args[1]));
+                var picture = new RandomPicture(imageAbstraction, pictureSaver);
                 picture.PictureSaveToBmp(args[2]);
             }
             else
