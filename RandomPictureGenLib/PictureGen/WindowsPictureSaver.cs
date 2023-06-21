@@ -5,11 +5,10 @@ namespace RandomPictureGenLib.PictureGen
 {
     public class WindowsPictureSaver : IPictureSaver
     {
-        public Bitmap image { private set; get; }
 
-        public void CreatePicture(ImageDTO imageAbstraction)
+        private Bitmap CreatePicture(ImageDTO imageAbstraction)
         {
-            image = new Bitmap(imageAbstraction.Width, imageAbstraction.Height);
+            using var image = new Bitmap(imageAbstraction.Width, imageAbstraction.Height);
             for (int x = 0; x < image.Width; x++)
             {
                 for (int y = 0; y < image.Height; y++)
@@ -24,7 +23,7 @@ namespace RandomPictureGenLib.PictureGen
                     }
                 }
             }
-
+            return image;
         }
 
         private string PathHandling(string path, string defaultName)
@@ -39,10 +38,11 @@ namespace RandomPictureGenLib.PictureGen
             Directory.CreateDirectory(directory.ToString());
             return path;
         }
-        public void SaveBmp(string path)
+        public void SaveBmp(string path, ImageDTO imageAbstraction)
         {
             try
             {
+                var image = CreatePicture(imageAbstraction);
                 image.Save(PathHandling(path, "pic.bmp"), ImageFormat.Bmp);
             }
             catch (Exception exc)
@@ -51,10 +51,11 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        public void SaveJpg(string path)
+        public void SaveJpg(string path, ImageDTO imageAbstraction)
         {
             try
             {
+                var image = CreatePicture(imageAbstraction);
                 image.Save(PathHandling(path, "pic.jpg"), ImageFormat.Jpeg);
             }
             catch (Exception exc)

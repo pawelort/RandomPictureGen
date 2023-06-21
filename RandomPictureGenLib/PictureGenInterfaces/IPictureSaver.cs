@@ -3,8 +3,7 @@ namespace RandomPictureGenLib.PictureGenInterfaces
 {
     public interface IPictureSaver
     {
-        void CreatePicture(ImageDTO imageAbstraction);
-        void SaveJpg(string path);
-        void SaveBmp(string path);
+        void SaveJpg(string path, ImageDTO imageAbstraction);
+        void SaveBmp(string path, ImageDTO imageAbstraction);
     }
 }
