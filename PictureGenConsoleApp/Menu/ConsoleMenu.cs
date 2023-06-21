@@ -147,9 +147,7 @@ namespace PictureGenConsoleApp.Menu
         {
             try
             {
-                var picture = imageModel.CreateImageAbstraction();
-                imageSaver.CreatePicture(picture);
-                imageSaver.SaveBmp(imagePath);
+                imageSaver.SaveBmp(imagePath, imageModel.CreateImageAbstraction());
             }
             catch (Exception generationExc)
             {
