@@ -4,22 +4,23 @@ namespace RandomPictureGenLib.PictureGen
     public class RandomPicture
     {
         public IImageAbstraction imageAbstraction { get; private set;}
-        public IPictureSaver pictureSaver { get; private set;}
+        public List<IPictureSaver> pictureSavers { get; private set;}
 
-        public RandomPicture(IImageAbstraction imageAbstraction, IPictureSaver pictureSaver)
+        public RandomPicture(IImageAbstraction imageAbstraction, List<IPictureSaver> pictureSavers)
         {
             this.imageAbstraction = imageAbstraction;
-            this.pictureSaver = pictureSaver;
+            this.pictureSavers = pictureSavers;
         }
 
-        public void PictureSaveToJpg(string destinationPath)
+        public void PictureSave(string destinationPath)
         {
-            pictureSaver.SaveJpg(destinationPath, imageAbstraction.CreateImageAbstraction());
+            var imgDTO = imageAbstraction.CreateImageAbstraction();
+            foreach(IPictureSaver picSaver in pictureSavers)
+            {
+                picSaver.Save(destinationPath, imgDTO);
+            }
+
         }
 
-        public void PictureSaveToBmp(string destinationPath)
-        {
-            pictureSaver.SaveBmp(destinationPath, imageAbstraction.CreateImageAbstraction());
-        }
     }
 }

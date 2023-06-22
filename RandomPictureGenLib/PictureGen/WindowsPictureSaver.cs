@@ -6,6 +6,13 @@ namespace RandomPictureGenLib.PictureGen
     public class WindowsPictureSaver : IPictureSaver
     {
 
+        public ImageFormat imgFormat { get; init; }
+
+        public WindowsPictureSaver(ImageFormat imgFormat)
+        {
+            this.imgFormat = imgFormat;
+        }
+
         private Bitmap CreatePicture(ImageDTO imageAbstraction)
         {
             var image = new Bitmap(imageAbstraction.Width, imageAbstraction.Height);
@@ -33,17 +40,17 @@ namespace RandomPictureGenLib.PictureGen
                 {
                     path = string.Concat(Directory.GetCurrentDirectory().ToString(), @$"\{defaultName}");
                 }
-            var file = new FileInfo(path);
+            var file = new FileInfo(string.Concat(path, @$"\{defaultName}"));
             var directory = file.Directory;
             Directory.CreateDirectory(directory.ToString());
-            return path;
+            return file.ToString();
         }
-        public void SaveBmp(string path, ImageDTO imageAbstraction)
+        public void Save(string path, ImageDTO imageAbstraction)
         {
             try
             {
                 using var image = CreatePicture(imageAbstraction);
-                image.Save(PathHandling(path, "pic.bmp"), ImageFormat.Bmp);
+                image.Save(PathHandling(path, $"pic.{imgFormat.ToString()}"), imgFormat);
             }
             catch (Exception exc)
             {
@@ -51,17 +58,23 @@ namespace RandomPictureGenLib.PictureGen
             }
         }
 
-        public void SaveJpg(string path, ImageDTO imageAbstraction)
+    }
+ 
+    public static class WindowsPictureFactorySaver
+    {
+        public static WindowsPictureSaver WindowsPictureJpgSaver()
         {
-            try
-            {
-                using var image = CreatePicture(imageAbstraction);
-                image.Save(PathHandling(path, "pic.jpg"), ImageFormat.Jpeg);
-            }
-            catch (Exception exc)
-            {
-                Console.WriteLine($"{exc.Message}");
-            }
+            return new WindowsPictureSaver(ImageFormat.Jpeg);
         }
+
+        public static WindowsPictureSaver WindowsPictureBmpSaver()
+        {
+            return new WindowsPictureSaver(ImageFormat.Bmp);
+        }
+
+        public static WindowsPictureSaver WindowsPicturePngSaver()
+        {
+            return new WindowsPictureSaver(ImageFormat.Png);
+        } 
     }
 }

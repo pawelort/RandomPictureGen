@@ -12,7 +12,7 @@ namespace PictureGenConsoleApp.Menu
         {
             currentMenuDisply = MenuType.MainMenu;
             imageModel = new ImageAbstraction(10, 10);
-            imageSaver = new WindowsPictureSaver();
+            imageSaver = WindowsPictureFactorySaver.WindowsPictureBmpSaver();
             imagePath = string.Empty;
             userSelection = "";
 
@@ -147,7 +147,7 @@ namespace PictureGenConsoleApp.Menu
         {
             try
             {
-                imageSaver.SaveBmp(imagePath, imageModel.CreateImageAbstraction());
+                imageSaver.Save(imagePath, imageModel.CreateImageAbstraction());
             }
             catch (Exception generationExc)
             {

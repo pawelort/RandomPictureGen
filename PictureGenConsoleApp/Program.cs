@@ -1,4 +1,5 @@
 ﻿using RandomPictureGenLib.PictureGen;
+using RandomPictureGenLib.PictureGenInterfaces;
 using PictureGenConsoleApp.Menu;
 namespace PictureGenConsoleApp
 {
@@ -8,10 +9,17 @@ namespace PictureGenConsoleApp
         {
             if (args.Length > 0)
             {
-                var pictureSaver = new WindowsPictureSaver();
+                var pictureSavers = new List<IPictureSaver>()
+                {
+                    WindowsPictureFactorySaver.WindowsPictureJpgSaver(),
+                    WindowsPictureFactorySaver.WindowsPictureBmpSaver(),
+                    WindowsPictureFactorySaver.WindowsPicturePngSaver()
+                };
+                
                 var imageAbstraction = new ImageAbstraction(int.Parse(args[0]), int.Parse(args[1]));
-                var picture = new RandomPicture(imageAbstraction, pictureSaver);
-                picture.PictureSaveToBmp(args[2]);
+                var picture = new RandomPicture(imageAbstraction, pictureSavers);
+                picture.PictureSave(args[2]);
+
             }
             else
             {
