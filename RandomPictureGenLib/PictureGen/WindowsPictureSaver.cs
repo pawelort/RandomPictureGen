@@ -35,12 +35,13 @@ namespace RandomPictureGenLib.PictureGen
 
         private string PathHandling(string path, string defaultName)
         {
+            var savePath = string.Concat(path, @$"\{defaultName}");
             var invalidPathChars = System.IO.Path.GetInvalidPathChars();
-            if (invalidPathChars.Any(path.Contains))
+            if (invalidPathChars.Any(savePath.Contains))
                 {
-                    path = string.Concat(Directory.GetCurrentDirectory().ToString(), @$"\{defaultName}");
+                    savePath = string.Concat(Directory.GetCurrentDirectory().ToString(), @$"\{defaultName}");
                 }
-            var file = new FileInfo(string.Concat(path, @$"\{defaultName}"));
+            var file = new FileInfo(savePath);
             var directory = file.Directory;
             Directory.CreateDirectory(directory.ToString());
             return file.ToString();

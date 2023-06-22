@@ -12,14 +12,14 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         public void IncorrectPathTest(string path)
         {
             // arrange
-            testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.bmp");
+            testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.Bmp");
             var picWidth = 30;
             var picHeight = 30;
             var imageAbstract = new ImageAbstraction(picWidth, picHeight);
-            var imageSaver = new WindowsPictureSaver();
+            var imageSaver = WindowsPictureFactorySaver.WindowsPictureBmpSaver();
 
             // act
-            imageSaver.SaveBmp(path, imageAbstract.CreateImageAbstraction());
+            imageSaver.Save(path, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
@@ -39,8 +39,8 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         string? directoryToCreatePath;
         string? testPictureFullName;
 
-        [InlineData(@"\new_BMP_picture\", "pic.bmp", 100, 80)]
-        [InlineData(@"\pictures_BMP\", "temp.bmp", 50, 30)]
+        [InlineData(@"\new_BMP_picture\", "pic.Bmp", 100, 80)]
+        [InlineData(@"\pictures_BMP\", "pic.Bmp", 50, 30)]
         [Theory]
         public void SaveBmpPictureTest(string dirPath, string fileName, int picWidth, int picHeight)
         {
@@ -48,10 +48,10 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             directoryToCreatePath = string.Concat(Directory.GetCurrentDirectory(), dirPath);
             testPictureFullName = string.Concat(directoryToCreatePath, fileName);
             var imageAbstract = new ImageAbstraction(picWidth, picHeight);
-            var imageSaver = new WindowsPictureSaver();
+            var imageSaver = WindowsPictureFactorySaver.WindowsPictureBmpSaver();
 
             // act
-            imageSaver.SaveBmp(testPictureFullName, imageAbstract.CreateImageAbstraction());
+            imageSaver.Save(directoryToCreatePath, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
@@ -74,8 +74,8 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
         string? directoryToCreatePath;
         string? testPictureFullName;
 
-        [InlineData(@"\new_JPG_picture\", "pic.jpg", 100, 70)]
-        [InlineData(@"\pictures_JPG\", "temp.jpg", 30, 50)]
+        [InlineData(@"\new_JPG_picture\", "pic.Jpeg", 100, 70)]
+        [InlineData(@"\pictures_JPG\", "pic.Jpeg", 30, 50)]
         [Theory]
         public void SaveBmpPictureTest(string dirPath, string fileName, int picWidth, int picHeight)
         {
@@ -83,10 +83,10 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             directoryToCreatePath = string.Concat(Directory.GetCurrentDirectory(), dirPath);
             testPictureFullName = string.Concat(directoryToCreatePath, fileName);
             var imageAbstract = new ImageAbstraction(picWidth, picHeight);
-            var imageSaver = new WindowsPictureSaver();
+            var imageSaver = WindowsPictureFactorySaver.WindowsPictureJpgSaver();
 
             // act
-            imageSaver.SaveJpg(testPictureFullName, imageAbstract.CreateImageAbstraction());
+            imageSaver.Save(directoryToCreatePath, imageAbstract.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
@@ -117,11 +117,11 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             var picHeight = 20;
             createWhiteImageDTO.Setup(x => x.CreateImageAbstraction()).Returns(new ImageDTO(picWidth, picHeight));
 
-            testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.bmp");
-            var imageSaver = new WindowsPictureSaver();
+            testPictureFullName = string.Concat(Directory.GetCurrentDirectory(), @"\pic.Bmp");
+            var imageSaver = WindowsPictureFactorySaver.WindowsPictureBmpSaver();
 
             // act
-            imageSaver.SaveBmp(testPictureFullName, createWhiteImageDTO.Object.CreateImageAbstraction());
+            imageSaver.Save(Directory.GetCurrentDirectory(), createWhiteImageDTO.Object.CreateImageAbstraction());
             using var createdImage = new Bitmap(testPictureFullName);
 
             // assert
@@ -143,4 +143,5 @@ namespace PictureGenTest.RandomPictureGenLib_PictureGen
             File.Delete(testPictureFullName);
         }
     }
+    
 }
